@@ -29,49 +29,49 @@ namespace NGU_Idle_Master
         public static readonly RECT rectBaseCap = new RECT()
         {
             Left = 648,
-            Top = 312 + 5,
+            Top = 312 - 8,
             Right = 784,
-            Bottom = 326 + 7
+            Bottom = 326 - 6
         };
 
         public static readonly RECT rectTotalCap = new RECT()
         {
             Left = 648,
-            Top = 263 + 5,
+            Top = 263 - 8,
             Right = 784,
-            Bottom = 277 + 7
+            Bottom = 277 - 6
         };
 
         public static readonly RECT rectBasePower = new RECT()
         {
             Left = 482,
-            Top = 312 + 5,
+            Top = 312 - 8,
             Right = 618,
-            Bottom = 326 + 7
+            Bottom = 326 - 6
         };
 
         public static readonly RECT rectTotalPower = new RECT()
         {
             Left = 482,
-            Top = 263 + 5,
+            Top = 263 - 8,
             Right = 618,
-            Bottom = 277 + 7
+            Bottom = 277 - 6
         };
 
         public static readonly RECT rectBaseBar = new RECT()
         {
             Left = 805,
-            Top = 312 + 5,
+            Top = 312 - 8,
             Right = 941,
-            Bottom = 326 + 7
+            Bottom = 326 - 6
         };
 
         public static readonly RECT rectTotalBar = new RECT()
         {
             Left = 805,
-            Top = 263 + 5,
+            Top = 263 - 8,
             Right = 941,
-            Bottom = 277 + 7
+            Bottom = 277 - 6
         };
 
         #endregion
@@ -86,50 +86,50 @@ namespace NGU_Idle_Master
 
         public static readonly Point pointPageEnergy = new Point()
         {
-            X = 355,
+            X = 405,
             Y = 119
         };
 
         public static readonly Point pointPageMagic = new Point()
         {
-            X = 430,
+            X = 475,
             Y = 119
         };
 
         public static readonly Point pointFieldPower = new Point()
         {
             X = 552,
-            Y = 530 + 7
+            Y = 530 - 6
         };
 
         public static readonly Point pointFieldCap = new Point()
         {
             X = 718,
-            Y = 530 + 7
+            Y = 530 - 6
         };
 
         public static readonly Point pointFieldBar = new Point()
         {
             X = 866,
-            Y = 530 + 7
+            Y = 530 - 6
         };
 
         public static readonly Point pointBuyPower = new Point()
         {
             X = 552,
-            Y = 565 + 7
+            Y = 565 - 6
         };
 
         public static readonly Point pointBuyCap = new Point()
         {
             X = 718,
-            Y = 565 + 7
+            Y = 565 - 6
         };
 
         public static readonly Point pointBuyBar = new Point()
         {
             X = 866,
-            Y = 565 + 7
+            Y = 565 - 6
         };
 
         #endregion

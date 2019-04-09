@@ -85,79 +85,118 @@ namespace NGU_Idle_Master
         public static readonly Point pointInput = new Point()
         {
             X = 440,
-            Y = 74
+            Y = 30
+        };
+
+        //Energy
+        public static readonly Point pointFullEnergy = new Point()
+        {
+            X = 683,
+            Y = 28
         };
 
         public static readonly Point pointHalfCapEnergy = new Point()
         {
-            X = 512,
-            Y = 29
+            X = 714,
+            Y = 28
         };
 
         public static readonly Point pointQuarterCapEnergy = new Point()
         {
-            X = 541,
-            Y = 29
+            X = 744,
+            Y = 28
         };
 
         public static readonly Point pointHalfIdleEnergy = new Point()
         {
-            X = 512,
-            Y = 55
+            X = 875,
+            Y = 28
         };
 
         public static readonly Point pointQuarterIdleEnergy = new Point()
         {
-            X = 541,
-            Y = 55
-        };
-
-        public static readonly Point pointFullEnergy = new Point()
-        {
-            X = 522,
-            Y = 77
+            X = 900,
+            Y = 28
         };
 
         public static readonly Point pointPercentageIdleEnergy = new Point()
         {
-            X = 818,
-            Y = 77
+            X = 930,
+            Y = 28
+        };
+        
+        //Magic
+        public static readonly Point pointFullMagic = new Point()
+        {
+            X = 683,
+            Y = 28 + 25
         };
 
         public static readonly Point pointHalfCapMagic = new Point()
         {
-            X = 655,
-            Y = 29
+            X = 714,
+            Y = 28 + 25
         };
 
         public static readonly Point pointQuarterCapMagic = new Point()
         {
-            X = 684,
-            Y = 29
+            X = 744,
+            Y = 28 + 25
         };
 
         public static readonly Point pointHalfIdleMagic = new Point()
         {
-            X = 655,
-            Y = 55
+            X = 875,
+            Y = 28 + 25
         };
 
         public static readonly Point pointQuarterIdleMagic = new Point()
         {
-            X = 684,
-            Y = 55
-        };
-
-        public static readonly Point pointFullMagic = new Point()
-        {
-            X = 670,
-            Y = 78
+            X = 900,
+            Y = 28 + 25
         };
 
         public static readonly Point pointPercentageIdleMagic = new Point()
         {
-            X = 848,
-            Y = 77
+            X = 930,
+            Y = 28 + 25
+        };
+
+        //Third
+        public static readonly Point pointFullThird = new Point()
+        {
+            X = 683,
+            Y = 28 + 25 * 2 * 2
+        };
+
+        public static readonly Point pointHalfCapThird = new Point()
+        {
+            X = 714,
+            Y = 28 + 25 * 2
+        };
+
+        public static readonly Point pointQuarterCapThird = new Point()
+        {
+            X = 744,
+            Y = 28 + 25 * 2
+        };
+
+        public static readonly Point pointHalfIdleThird = new Point()
+        {
+            X = 875,
+            Y = 28 + 25 * 2
+        };
+
+        public static readonly Point pointQuarterIdleThird = new Point()
+        {
+            X = 900,
+            Y = 28 + 25 * 2
+        };
+
+        public static readonly Point pointPercentageIdleThird = new Point()
+        {
+            X = 930,
+            Y = 28 + 25 * 2
         };
 
         #endregion
@@ -394,10 +433,22 @@ namespace NGU_Idle_Master
             {
                 input = input.Substring(0, input.Length - 1);
             }
-
+            
             if (input.Contains("."))
             {
-                input = input.Substring(0, input.IndexOf("."));
+                string inputFront = input.Substring(0, input.Length - 2);
+                string inputEnd = input.Substring(input.Length - 2);
+
+                inputFront = inputFront.Replace(".", ",");
+
+                if (inputEnd.Contains("."))
+                {
+                    inputEnd = inputEnd.Substring(0, input.IndexOf("."));
+                }
+
+                input = inputFront + inputEnd;
+
+                //input = input.Substring(0, input.IndexOf("."));
             }
 
             return BigInteger.Parse(input, numberStyle, numberFormatProvider);

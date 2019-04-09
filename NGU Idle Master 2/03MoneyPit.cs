@@ -26,14 +26,14 @@ namespace NGU_Idle_Master
 
         public static readonly Point pointPageDailySpin = new Point()
         {
-            X = 353,
-            Y = 55
+            X = 830,
+            Y = 250
         };
 
         public static readonly Point pointThrow = new Point()
         {
-            X = 624,
-            Y = 304
+            X = 435,
+            Y = 175
         };
 
         public static readonly Point pointSpin = new Point()

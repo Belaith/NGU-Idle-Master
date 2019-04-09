@@ -326,7 +326,7 @@ namespace NGU_Idle_Master
                         spendEXP.GetEXP();
                     }
 
-                    questing.CompleteQuest();
+                    //questing.CompleteQuest();
 
                     goldDiggers.LevelDiggers();
                     moneyPit.Throw();

@@ -65,7 +65,6 @@ namespace NGU_Idle_Master
             nguIdleMaster = new NguIdleMaster(config);
 
             //nguIdleMaster.window.SaveBitmap("window");
-            nguIdleMaster.questing.CompleteQuest();
 
             nguIdleMaster.window.Log("Config neu geladen!");
 
