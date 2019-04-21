@@ -314,9 +314,11 @@ namespace NGU_Idle_Master
 
                 if (timerMaintenance.Elapsed)
                 {
-                    if (config.ShouldSpenExp)
+                    if (config.Exp.ShouldSpenExp)
                     {
-                        while (spendEXP.AllocateEXP(37500 * 3, 1 * 3, 1 * 3, 37500, 1, 1) > 0)
+                        while (spendEXP.AllocateEXP(config.Exp.EnergyCap, config.Exp.EnergyPower, config.Exp.EnergyBars,
+                                                    config.Exp.MagicCap, config.Exp.MagicPower, config.Exp.MagicBars,
+                                                    config.Exp.ThirdCap, config.Exp.ThirdPower, config.Exp.ThirdBars) > 0)
                         {
                             timerAllocateEnergyMagic.Elapsed = true;
                         }

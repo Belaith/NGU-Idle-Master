@@ -96,6 +96,12 @@ namespace NGU_Idle_Master
             Y = 119
         };
 
+        public static readonly Point pointPageThird = new Point()
+        {
+            X = 405,
+            Y = 149
+        };
+
         public static readonly Point pointFieldPower = new Point()
         {
             X = 552,
@@ -136,13 +142,17 @@ namespace NGU_Idle_Master
 
         #region costs
 
-        public static readonly BigInteger costECapPer10000 = 40;
-        public static readonly BigInteger costEPowerPer10000 = 1500000;
-        public static readonly BigInteger costEBarPer10000 = 800000;
+        public static readonly BigInteger costEnergyCapPer10000 = 40;
+        public static readonly BigInteger costEnergyPowerPer10000 = 1500000;
+        public static readonly BigInteger costEnergyBarPer10000 = 800000;
 
-        public static readonly BigInteger costMCapPer10000 = 120;
-        public static readonly BigInteger costMPowerPer10000 = 4500000;
-        public static readonly BigInteger costMBarPer10000 = 2400000;
+        public static readonly BigInteger costMagicCapPer10000 = 120;
+        public static readonly BigInteger costMagicPowerPer10000 = 4500000;
+        public static readonly BigInteger costMagicBarPer10000 = 2400000;
+
+        public static readonly BigInteger costThirdCapPer10000 = 4000000;
+        public static readonly BigInteger costThirdPowerPer10000 = 150000000000;
+        public static readonly BigInteger costThirdBarPer10000 = 80000000000;
 
         #endregion
     }
@@ -209,41 +219,20 @@ namespace NGU_Idle_Master
 
             return exp;
         }
-
-        //public BigInteger AllocateEXP(int energyToManaRatio, double minutesTillFilled)
-        //{
-        //    BigInteger startExp = GetEXP();
-
-        //    if (startExp == 0)
-        //    {
-        //        return startExp;
-        //    }
-
-        //    window.Click(pointPageSpendEXP, false, true);
-        //    BigInteger eBaseCap = window.Parse(window.OCRTextSearch(rectBaseCap, false));
-        //    BigInteger eTotalCap = window.Parse(window.OCRTextSearch(rectTotalCap, false));
-        //    BigInteger eBasePower = window.Parse(window.OCRTextSearch(rectBasePower, false));
-        //    BigInteger eTotalPower = window.Parse(window.OCRTextSearch(rectTotalPower, false));
-        //    BigInteger eBaseBar = window.Parse(window.OCRTextSearch(rectBaseBar, false));
-        //    BigInteger eTotalBar = window.Parse(window.OCRTextSearch(rectTotalBar, false));
-            
-        //    double eBaseToTotalCap = ((double)((eTotalCap * 10000) / eBaseCap)) / 10000;
-        //    double eBaseToTotalPower = ((double)((eTotalPower * 10000) / eBasePower)) / 10000;
-        //    double eBaseToTotalBar = ((double)((eTotalBar * 10000) / eBaseBar)) / 10000;
-
-        //    BigInteger eBarNeeded = eBaseBar - (int)((double)(eTotalCap / (int)(50 * 60 * minutesTillFilled)) / eBaseToTotalBar);
-
-        //    return 0;
-        //}
-
-        public BigInteger AllocateEXP(int eCapRatio, int ePowerRatio, int eBarRatio, int mCapRatio, int mPowerRatio, int mBarRatio)
+                
+        public BigInteger AllocateEXP(long eCapRatio, long ePowerRatio, long eBarRatio, long mCapRatio, long mPowerRatio, long mBarRatio, long tCapRatio, long tPowerRatio, long tBarRatio)
         {
-            BigInteger costPerUnit = ((eCapRatio * SpendEXPConstants.costECapPer10000) / 10000)
-                                        + ((ePowerRatio * SpendEXPConstants.costEPowerPer10000) / 10000)
-                                        + ((eBarRatio * SpendEXPConstants.costEBarPer10000) / 10000)
-                                        + ((mCapRatio * SpendEXPConstants.costMCapPer10000) / 10000)
-                                        + ((mPowerRatio * SpendEXPConstants.costMPowerPer10000) / 10000)
-                                        + ((mBarRatio * SpendEXPConstants.costMBarPer10000) / 10000);
+
+            bool spendThird = tCapRatio > 0 || tPowerRatio > 0 || tBarRatio > 0;
+            BigInteger costPerUnit = (eCapRatio > 0 ? eCapRatio * SpendEXPConstants.costEnergyCapPer10000 / 10000 : 0)
+                                        + (ePowerRatio > 0 ? ePowerRatio * SpendEXPConstants.costEnergyPowerPer10000 / 10000 : 0)
+                                        + (eBarRatio > 0 ? eBarRatio * SpendEXPConstants.costEnergyBarPer10000 / 10000 : 0)
+                                        + (mCapRatio > 0 ? mCapRatio * SpendEXPConstants.costMagicCapPer10000 / 10000 : 0)
+                                        + (mPowerRatio > 0 ? mPowerRatio * SpendEXPConstants.costMagicPowerPer10000 / 10000 : 0)
+                                        + (mBarRatio > 0 ? mBarRatio * SpendEXPConstants.costThirdBarPer10000 / 10000 : 0)
+                                        + (tCapRatio > 0 ? tCapRatio * SpendEXPConstants.costThirdCapPer10000 / 10000 : 0)
+                                        + (tPowerRatio > 0 ? tPowerRatio * SpendEXPConstants.costThirdPowerPer10000 / 10000 : 0)
+                                        + (tBarRatio > 0 ? tBarRatio * SpendEXPConstants.costThirdBarPer10000 / 10000 : 0);
 
             BigInteger startExp = GetEXP();
 
@@ -262,15 +251,31 @@ namespace NGU_Idle_Master
             BigInteger mPower = window.Parse(window.OCRTextSearch(SpendEXPConstants.rectBasePower, false));
             BigInteger mBar = window.Parse(window.OCRTextSearch(SpendEXPConstants.rectBaseBar, false));
 
-            BigInteger eCapCurrentUnits = eCap / eCapRatio;
-            BigInteger ePowerCurrentUnits = ePower / ePowerRatio;
-            BigInteger eBarCurrentUnits = eBar / eBarRatio;
-            BigInteger mCapCurrentUnits = mCap / mCapRatio;
-            BigInteger mPowerCurrentUnits = mPower / mPowerRatio;
-            BigInteger mBarCurrentUnits = mBar / mBarRatio;
+            BigInteger tCap = 0;
+            BigInteger tPower = 0;
+            BigInteger tBar = 0;
 
-            BigInteger maxCurrentUnits = BigInteger.Max(eCapCurrentUnits, BigInteger.Max(ePowerCurrentUnits, BigInteger.Max(eBarCurrentUnits, BigInteger.Max(mCapCurrentUnits, BigInteger.Max(mPowerCurrentUnits, mBarCurrentUnits)))));
-            BigInteger minCurrentUnits = BigInteger.Min(eCapCurrentUnits, BigInteger.Min(ePowerCurrentUnits, BigInteger.Min(eBarCurrentUnits, BigInteger.Min(mCapCurrentUnits, BigInteger.Min(mPowerCurrentUnits, mBarCurrentUnits)))));
+            if (spendThird)
+            {
+                window.Click(SpendEXPConstants.pointPageThird, false, true);
+                tCap = window.Parse(window.OCRTextSearch(SpendEXPConstants.rectBaseCap, false));
+                tPower = window.Parse(window.OCRTextSearch(SpendEXPConstants.rectBasePower, false));
+                tBar = window.Parse(window.OCRTextSearch(SpendEXPConstants.rectBaseBar, false));
+            }
+
+            BigInteger eCapCurrentUnits = eCap > 0 && eCapRatio > 0 ? eCap / eCapRatio : -1;
+            BigInteger ePowerCurrentUnits = ePower > 0 && ePowerRatio > 0 ? ePower / ePowerRatio : -1;
+            BigInteger eBarCurrentUnits = eBar > 0 && eBarRatio > 0 ? eBar / eBarRatio : -1;
+            BigInteger mCapCurrentUnits = mCap > 0 && mCapRatio > 0 ? mCap / mCapRatio : -1;
+            BigInteger mPowerCurrentUnits = mPower > 0 && mPowerRatio > 0 ? mPower / mPowerRatio : -1;
+            BigInteger mBarCurrentUnits = mBar > 0 && mBarRatio > 0 ? mBar / mBarRatio : -1;
+            BigInteger tCapCurrentUnits = tCap > 0 && tCapRatio > 0 ? tCap / tCapRatio : -1;
+            BigInteger tPowerCurrentUnits = tPower > 0 && tPowerRatio > 0 ? tPower / tPowerRatio : -1;
+            BigInteger tBarCurrentUnits = tBar > 0 && tBarRatio > 0 ? tBar / tBarRatio : -1;
+
+            //todo funktion die das macht und -1 ignoriert
+            BigInteger maxCurrentUnits = max(new BigInteger[] { eCapCurrentUnits, ePowerCurrentUnits, eBarCurrentUnits, mCapCurrentUnits, mPowerCurrentUnits, mBarCurrentUnits, tCapCurrentUnits, tPowerCurrentUnits, tBarCurrentUnits });
+            BigInteger minCurrentUnits = min(new BigInteger[] { eCapCurrentUnits, ePowerCurrentUnits, eBarCurrentUnits, mCapCurrentUnits, mPowerCurrentUnits, mBarCurrentUnits, tCapCurrentUnits, tPowerCurrentUnits, tBarCurrentUnits });
 
             BigInteger targetUnits = minCurrentUnits + (startExp / costPerUnit);
 
@@ -280,6 +285,9 @@ namespace NGU_Idle_Master
             BigInteger mCapTarget = targetUnits * mCapRatio;
             BigInteger mPowerTarget = targetUnits * mPowerRatio;
             BigInteger mBarTarget = targetUnits * mBarRatio;
+            BigInteger tCapTarget = targetUnits * tCapRatio;
+            BigInteger tPowerTarget = targetUnits * tPowerRatio;
+            BigInteger tBarTarget = targetUnits * tBarRatio;
 
             BigInteger eCapNeeded = eCapTarget - eCap;
             BigInteger ePowerNeeded = ePowerTarget - ePower;
@@ -287,7 +295,10 @@ namespace NGU_Idle_Master
             BigInteger mCapNeeded = mCapTarget - mCap;
             BigInteger mPowerNeeded = mPowerTarget - mPower;
             BigInteger mBarNeeded = mBarTarget - mBar;
-            
+            BigInteger tCapNeeded = tCapTarget - tCap;
+            BigInteger tPowerNeeded = tPowerTarget - tPower;
+            BigInteger tBarNeeded = tBarTarget - tBar;
+
             window.Click(SpendEXPConstants.pointPageEnergy, false, true);
             if (eBarNeeded > 0)
             {
@@ -328,9 +339,62 @@ namespace NGU_Idle_Master
                 window.Click(SpendEXPConstants.pointBuyCap, false, false);
             }
 
+            if (spendThird)
+            {
+                window.Click(SpendEXPConstants.pointPageThird, false, true);
+                if (mBarNeeded > 0)
+                {
+                    window.Click(SpendEXPConstants.pointFieldBar, false, false);
+                    window.SendString(tBarNeeded.ToString(), false);
+                    window.Click(SpendEXPConstants.pointBuyBar, false, false);
+                }
+                if (mPowerNeeded > 0)
+                {
+                    window.Click(SpendEXPConstants.pointFieldPower, false, false);
+                    window.SendString(tPowerNeeded.ToString(), false);
+                    window.Click(SpendEXPConstants.pointBuyPower, false, false);
+                }
+                if (mCapNeeded > 0)
+                {
+                    window.Click(SpendEXPConstants.pointFieldCap, false, false);
+                    window.SendString(tCapNeeded.ToString(), false);
+                    window.Click(SpendEXPConstants.pointBuyCap, false, false);
+                }
+            }
+
             BigInteger endExp = GetEXP();
-            
+
             return startExp - endExp;
+        }
+
+        private BigInteger min(BigInteger[] numbers)
+        {
+            BigInteger min = 0;
+
+            foreach (BigInteger number in numbers)
+            {
+                if (number > 0 && (min == 0 || number < min))
+                {
+                    min = number;
+                }
+            }
+
+            return min;
+        }
+
+        private BigInteger max(BigInteger[] numbers)
+        {
+            BigInteger max = 0;
+
+            foreach (BigInteger number in numbers)
+            {
+                if (number > max)
+                {
+                    max = number;
+                }
+            }
+
+            return max;
         }
     }
 }
