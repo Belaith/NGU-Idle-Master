@@ -155,12 +155,18 @@ namespace NGU_Idle_Master
                     inventory.Loadout(2);
 
                     timeMachine.SetSpeedAndMultiplier();
+                    hacks.SetHacks();
 
-                    inventory.Merge(true, config.inventarSlotsMerge);
-                    inventory.Boost(true, config.inventarSlotsBoost);
-                    timerMergeBoost.Restart();
-
-                    window.Wait((timerOneMob.RemainingMilliseconds + 1) / 1000);
+                    if (!timerOneMob.Elapsed)
+                    {
+                        inventory.Merge(true, config.inventarSlotsMerge);
+                    }
+                    if (!timerOneMob.Elapsed)
+                    {
+                        inventory.Boost(true, config.inventarSlotsBoost);
+                        timerMergeBoost.Restart();
+                        window.Wait((timerOneMob.RemainingMilliseconds + 1) / 1000);
+                    }
 
                     inventory.Loadout(1);
 
