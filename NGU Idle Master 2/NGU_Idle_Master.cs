@@ -458,9 +458,9 @@ namespace NGU_Idle_Master
                     break;
                 }
 
-                if (config.Snipe)
+                if (config.Snipe.ShouldSnipe)
                 {
-                    adventure.Farm(config.SnipeStage, config.SnipeSeconds, config.SnipeBossOnly, config.FarmStage, fightBoss.GetCurrentBoss());
+                    adventure.Farm(config.Snipe.SnipeStage, config.Snipe.SnipeSeconds, config.Snipe.SnipeBossOnly, config.FarmStage, fightBoss.GetCurrentBoss());
                 }
 
                 window.Wait(Math.Max(1, timers.Min(x => x.RemainingMilliseconds) / 1000));

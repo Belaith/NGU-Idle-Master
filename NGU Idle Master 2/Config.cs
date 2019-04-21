@@ -18,10 +18,7 @@ namespace NGU_Idle_Master
         public bool ShouldSpenExp { get; set; }
         public int Rituals { get; set; }
         public int MaxFarmForGold { get; set; }
-        public bool Snipe { get; set; }
-        public int SnipeStage { get; set; }
-        public int SnipeSeconds { get; set; }
-        public bool SnipeBossOnly { get; set; }
+        public Snipe Snipe { get; set; }
         public int FarmStage { get; set; }
 
 
@@ -33,6 +30,16 @@ namespace NGU_Idle_Master
             get { return RebirthTime.ToString(); }
             set { RebirthTime = TimeSpan.Parse(value); }
         }
+    }
+
+    [Serializable]
+    public class Snipe
+    {
+        [XmlAttribute]
+        public bool ShouldSnipe { get; set; }
+        public int SnipeStage { get; set; }
+        public int SnipeSeconds { get; set; }
+        public bool SnipeBossOnly { get; set; }
     }
 
     [Serializable]
