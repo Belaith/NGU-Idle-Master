@@ -16,6 +16,8 @@ namespace NGU_Idle_Master
     {
         static string filePath;
         static NguIdleMaster nguIdleMaster;
+        static FileSystemWatcher watcher = new FileSystemWatcher();
+
 
         static void Main(string[] args)
         {
@@ -26,7 +28,7 @@ namespace NGU_Idle_Master
                 filePath = args[0];
             }
 
-            FileSystemWatcher watcher = new FileSystemWatcher();
+            watcher = new FileSystemWatcher();
             watcher.NotifyFilter = NotifyFilters.LastWrite;
             watcher.Path = Directory.GetCurrentDirectory();
             watcher.Filter = filePath;
