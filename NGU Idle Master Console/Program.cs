@@ -65,7 +65,7 @@ namespace NGU_Idle_Master
             xmlSerializer = null;
 
             nguIdleMaster = new NguIdleMaster(config);
-
+            
             //nguIdleMaster.window.SaveBitmap("window");
 
             nguIdleMaster.window.Log("Config neu geladen!");

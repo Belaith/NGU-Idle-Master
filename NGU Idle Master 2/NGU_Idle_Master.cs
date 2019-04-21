@@ -35,6 +35,7 @@ namespace NGU_Idle_Master
         public Yggdrasil yggdrasil { get; private set; }
         public GoldDiggers goldDiggers { get; private set; }
         public Questing questing { get; private set; }
+        public Hacks hacks { get; private set; }
 
         public bool Stop { get; set; }
         public ManualResetEvent mre = new ManualResetEvent(false);
@@ -61,6 +62,7 @@ namespace NGU_Idle_Master
             yggdrasil = new Yggdrasil(window);
             goldDiggers = new GoldDiggers(window);
             questing = new Questing(window);
+            hacks = new Hacks(window);
         }
 
         ~NguIdleMaster()
@@ -356,6 +358,8 @@ namespace NGU_Idle_Master
 
                 if (timerAllocateEnergyMagic.Elapsed)
                 {
+                    hacks.SetHacks();
+
                     if (withoutRebirth && !isChallenge)
                     {
                         //kein rebirth
@@ -369,7 +373,7 @@ namespace NGU_Idle_Master
 
                         if (runTime.TotalMilliseconds < (config.RebirthTime.TotalMilliseconds / 6) * 1)
                         {
-                            //erstees sechstel
+                            //erstes sechstel
                             mode = 1;
                         }
                         else if (runTime.TotalMilliseconds > (config.RebirthTime.TotalMilliseconds / 6) * 5 || isChallenge)

@@ -224,15 +224,15 @@ namespace NGU_Idle_Master
         {
 
             bool spendThird = tCapRatio > 0 || tPowerRatio > 0 || tBarRatio > 0;
-            BigInteger costPerUnit = (eCapRatio > 0 ? eCapRatio * SpendEXPConstants.costEnergyCapPer10000 / 10000 : 0)
-                                        + (ePowerRatio > 0 ? ePowerRatio * SpendEXPConstants.costEnergyPowerPer10000 / 10000 : 0)
-                                        + (eBarRatio > 0 ? eBarRatio * SpendEXPConstants.costEnergyBarPer10000 / 10000 : 0)
-                                        + (mCapRatio > 0 ? mCapRatio * SpendEXPConstants.costMagicCapPer10000 / 10000 : 0)
-                                        + (mPowerRatio > 0 ? mPowerRatio * SpendEXPConstants.costMagicPowerPer10000 / 10000 : 0)
-                                        + (mBarRatio > 0 ? mBarRatio * SpendEXPConstants.costThirdBarPer10000 / 10000 : 0)
-                                        + (tCapRatio > 0 ? tCapRatio * SpendEXPConstants.costThirdCapPer10000 / 10000 : 0)
-                                        + (tPowerRatio > 0 ? tPowerRatio * SpendEXPConstants.costThirdPowerPer10000 / 10000 : 0)
-                                        + (tBarRatio > 0 ? tBarRatio * SpendEXPConstants.costThirdBarPer10000 / 10000 : 0);
+            BigInteger costPerUnit = (eCapRatio > 0 ? (eCapRatio * SpendEXPConstants.costEnergyCapPer10000) / 10000 : 0)
+                                        + (ePowerRatio > 0 ? (ePowerRatio * SpendEXPConstants.costEnergyPowerPer10000) / 10000 : 0)
+                                        + (eBarRatio > 0 ? (eBarRatio * SpendEXPConstants.costEnergyBarPer10000) / 10000 : 0)
+                                        + (mCapRatio > 0 ? (mCapRatio * SpendEXPConstants.costMagicCapPer10000) / 10000 : 0)
+                                        + (mPowerRatio > 0 ? (mPowerRatio * SpendEXPConstants.costMagicPowerPer10000) / 10000 : 0)
+                                        + (mBarRatio > 0 ? (mBarRatio * SpendEXPConstants.costMagicBarPer10000) / 10000 : 0)
+                                        + (tCapRatio > 0 ? (tCapRatio * SpendEXPConstants.costThirdCapPer10000) / 10000 : 0)
+                                        + (tPowerRatio > 0 ? (tPowerRatio * SpendEXPConstants.costThirdPowerPer10000) / 10000 : 0)
+                                        + (tBarRatio > 0 ? (tBarRatio * SpendEXPConstants.costThirdBarPer10000) / 10000 : 0);
 
             BigInteger startExp = GetEXP();
 

@@ -58,6 +58,7 @@
     <Compile Include="13GoldDigger.cs" />
     <Compile Include="12Yggdrasil.cs" />
     <Compile Include="09BloodMagic.cs" />
+    <Compile Include="16Hacks.cs" />
     <Compile Include="DummyWindowForPowerBoradcast.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="NGU_Idle_Master.cs" />

@@ -170,7 +170,6 @@ namespace NGU_Idle_Master
         #endregion
     }
 
-
     public class Inventory
     {
         List<Point> equipPoints = new List<Point>();

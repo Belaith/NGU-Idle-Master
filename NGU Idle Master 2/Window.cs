@@ -424,7 +424,7 @@ namespace NGU_Idle_Master
         {
             input = input.Replace(" ", string.Empty);
 
-            while (!Char.IsDigit((input[0])))
+            while (input.Length > 0 && !Char.IsDigit((input[0])))
             {
                 input = input.Substring(1);
             }
