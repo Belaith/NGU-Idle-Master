@@ -272,8 +272,7 @@ namespace NGU_Idle_Master
             BigInteger tCapCurrentUnits = tCap > 0 && tCapRatio > 0 ? tCap / tCapRatio : -1;
             BigInteger tPowerCurrentUnits = tPower > 0 && tPowerRatio > 0 ? tPower / tPowerRatio : -1;
             BigInteger tBarCurrentUnits = tBar > 0 && tBarRatio > 0 ? tBar / tBarRatio : -1;
-
-            //todo funktion die das macht und -1 ignoriert
+            
             BigInteger maxCurrentUnits = max(new BigInteger[] { eCapCurrentUnits, ePowerCurrentUnits, eBarCurrentUnits, mCapCurrentUnits, mPowerCurrentUnits, mBarCurrentUnits, tCapCurrentUnits, tPowerCurrentUnits, tBarCurrentUnits });
             BigInteger minCurrentUnits = min(new BigInteger[] { eCapCurrentUnits, ePowerCurrentUnits, eBarCurrentUnits, mCapCurrentUnits, mPowerCurrentUnits, mBarCurrentUnits, tCapCurrentUnits, tPowerCurrentUnits, tBarCurrentUnits });
 
@@ -342,19 +341,19 @@ namespace NGU_Idle_Master
             if (spendThird)
             {
                 window.Click(SpendEXPConstants.pointPageThird, false, true);
-                if (mBarNeeded > 0)
+                if (tBarNeeded > 0)
                 {
                     window.Click(SpendEXPConstants.pointFieldBar, false, false);
                     window.SendString(tBarNeeded.ToString(), false);
                     window.Click(SpendEXPConstants.pointBuyBar, false, false);
                 }
-                if (mPowerNeeded > 0)
+                if (tPowerNeeded > 0)
                 {
                     window.Click(SpendEXPConstants.pointFieldPower, false, false);
                     window.SendString(tPowerNeeded.ToString(), false);
                     window.Click(SpendEXPConstants.pointBuyPower, false, false);
                 }
-                if (mCapNeeded > 0)
+                if (tCapNeeded > 0)
                 {
                     window.Click(SpendEXPConstants.pointFieldCap, false, false);
                     window.SendString(tCapNeeded.ToString(), false);

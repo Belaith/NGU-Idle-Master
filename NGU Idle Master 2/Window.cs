@@ -429,7 +429,7 @@ namespace NGU_Idle_Master
                 input = input.Substring(1);
             }
 
-            while (!Char.IsDigit((input[input.Length - 1])))
+            while (input.Length > 0 && !Char.IsDigit((input[input.Length - 1])))
             {
                 input = input.Substring(0, input.Length - 1);
             }
@@ -451,7 +451,14 @@ namespace NGU_Idle_Master
                 //input = input.Substring(0, input.IndexOf("."));
             }
 
-            return BigInteger.Parse(input, numberStyle, numberFormatProvider);
+            if (BigInteger.TryParse(input, numberStyle, numberFormatProvider, out BigInteger value))
+            {
+                return value;
+            }
+            else
+            {
+                return 0;
+            }
         }
 
         public bool addHawndCallback(int hwnd, int lParam)
